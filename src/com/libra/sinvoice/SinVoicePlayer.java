@@ -16,13 +16,12 @@
  */
 package com.libra.sinvoice;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.media.AudioFormat;
 import android.text.TextUtils;
-
 import com.libra.sinvoice.Buffer.BufferData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SinVoicePlayer implements Encoder.Listener, Encoder.Callback, PcmPlayer.Listener, PcmPlayer.Callback {
     private final static String TAG = "SinVoicePlayer";
@@ -123,9 +122,7 @@ public class SinVoicePlayer implements Encoder.Listener, Encoder.Callback, PcmPl
                     mPlayer.start();
                 }
             };
-            if (null != mPlayThread) {
-                mPlayThread.start();
-            }
+            mPlayThread.start();
 
             mEncodeThread = new Thread() {
                 @Override
@@ -140,9 +137,7 @@ public class SinVoicePlayer implements Encoder.Listener, Encoder.Callback, PcmPl
                     stopPlayer();
                 }
             };
-            if (null != mEncodeThread) {
-                mEncodeThread.start();
-            }
+            mEncodeThread.start();
 
             LogHelper.d(TAG, "play");
             mState = STATE_START;

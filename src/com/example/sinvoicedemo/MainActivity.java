@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.libra.sinvoice.LogHelper;
 import com.libra.sinvoice.SinVoicePlayer;
 import com.libra.sinvoice.SinVoiceRecognition;
@@ -28,6 +28,7 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         mSinVoicePlayer = new SinVoicePlayer(CODEBOOK);
@@ -41,29 +42,20 @@ public class MainActivity extends Activity implements SinVoiceRecognition.Listen
         mHanlder = new RegHandler(recognisedTextView);
 
         Button playStart = (Button) this.findViewById(R.id.start_play);
-        playStart.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                String text = genText(7);
-                playTextView.setText(text);
-                mSinVoicePlayer.play(text, true, 1000);
-            }
+        playStart.setOnClickListener(arg0 -> {
+            String text = genText(7);
+            playTextView.setText(text);
+            mSinVoicePlayer.play(text, true, 1000);
         });
 
         Button playStop = (Button) this.findViewById(R.id.stop_play);
-        playStop.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                mSinVoicePlayer.stop();
-            }
+        playStop.setOnClickListener(arg0 -> {
+            mSinVoicePlayer.stop();
         });
 
         Button recognitionStart = (Button) this.findViewById(R.id.start_reg);
-        recognitionStart.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                mRecognition.start();
-            }
+        recognitionStart.setOnClickListener(arg0 -> {
+            mRecognition.start();
         });
 
         Button recognitionStop = (Button) this.findViewById(R.id.stop_reg);
